@@ -1,0 +1,19 @@
+name: HTML Validation
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: debian:trixie
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate HTML
+        id: html
+        continue-on-error: true
+        uses: ./
+        with:
+          file: stdidx.htm html/std/html20.htm html/std/plantxt2.htm html/std/html32.htm html/std/html40.htm html/std/html401.htm html/std/html4frm.htm html/std/frames/body.htm html/std/frames/toc.htm
+      - name: Assert
+        run: test "${{ steps.html.outcome }}" = "failure"

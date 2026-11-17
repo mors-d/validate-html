@@ -1,0 +1,23 @@
+name: HTML Validation
+description: Validate HTML files using SGML-data and OpenSP.
+branding:
+  icon: check-circle
+  color: green
+
+inputs:
+  files:
+    description: HTML files to be validated.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Install Tooling
+      shell: sh
+      run: sudo apt-get update -qq && sudo apt-get install -y sgml-data opensp
+    - name: Validate HTML files
+      shell: sh
+      env:
+        FILE: ${{ inputs.files }}
+        VALID: 0
+      run: onsgmls -s -c /usr/share/sgml/html/dtd/catalog -c /usr/share/sgml/html/entities/catalog "$FILE"
