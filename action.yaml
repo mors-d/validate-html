@@ -18,6 +18,6 @@ runs:
     - name: Validate HTML files
       shell: sh
       env:
-        FILE: ${{ inputs.files }}
+        FILE: ${{ inputs.file }}
         VALID: 0
       run: onsgmls -s -c /usr/share/sgml/html/dtd/catalog -c /usr/share/sgml/html/entities/catalog "$FILE"
